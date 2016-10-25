@@ -1,14 +1,16 @@
 // global variables
 
-// stats variables (in object)
-// hp var
-// attack points var
-// counter attack points var
+// stats variables and image url (in object): hp var, attack points var, counter attack points var
+var char1 = {name: "Yoda", image: src="#", hp: 150, attack: 20};
+var char2 = { name: "Obi Wan", image: src="#", hp: 150, attack: 20 };
+var char3 = { name: "Darth Sidious", image: src="#", hp: 150, attack: 20 };
+var char4 = { name: "Darth Vader", image: src="#", hp: 150, attack: 20 };
 
 // stats on html var
 // hp
 // attack
 // counter attack
+
 
 // character image variables
 // img 1
@@ -23,6 +25,32 @@
 
 // function to set game board
 	//set intial stats (hp points)
+
+$.each (char1, function(key, value){
+	console.log(key + ':' + value);
+	$('#c1').append(key + ':' + value);
+	
+});
+
+$.each (char2, function(key, value){
+	console.log(key + ':' + value);
+	$('#c2').append(key + ':' + value);
+	
+});
+
+$.each (char3, function(key, value){
+	console.log(key + ':' + value);
+	$('#c3').append(key + ':' + value);
+	
+});
+
+$.each (char4, function(key, value){
+	console.log(key + ':' + value);
+	$('#c4').append(key + ':' + value);
+	
+});
+
+
 
 // function to move character images in correct divs
 	// if character chosen, then move other characters to opponent container
