@@ -8,14 +8,25 @@ h2 {
 	float: left;
 }
 
-.character-container {
+/*.character-container {
 	position: relative;
 	display: block-inline;
 	float: left;
-}
+}*/
 
 .opponent-container {
 	position: relative;
 	display: block-inline;
 	float: left;
+}
+
+div img {
+	position: relative;
+	float: left;
+	display: block;
+}
+
+div {
+	position: static;
+	display: inline-block;
 }

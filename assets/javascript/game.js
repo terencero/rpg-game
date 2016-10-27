@@ -1,10 +1,10 @@
 // global variables
 
 // stats variables and image url (in object): hp var, attack points var, counter attack points var
-var char1 = {name: "Yoda", image: src="#", hp: 180, attack: 20, counterattack: 10 };
-var char2 = { name: "Obi Wan", image: src="#", hp: 150, attack: 20, counterattack: 10 };
-var char3 = { name: "Darth Sidious", image: src="#", hp: 170, attack: 20, counterattack: 10 };
-var char4 = { name: "Darth Vader", image: src="#", hp: 130, attack: 20, counterattack: 10 };
+var char1 = {name: "Yoda", hp: 180, attack: 20, counterattack: 10 };
+var char2 = { name: "Obi Wan", hp: 150, attack: 20, counterattack: 10 };
+var char3 = { name: "Darth Sidious", hp: 170, attack: 20, counterattack: 10 };
+var char4 = { name: "Darth Vader", hp: 130, attack: 20, counterattack: 10 };
 
 // stats on html var
 // hp
@@ -28,25 +28,25 @@ var char4 = { name: "Darth Vader", image: src="#", hp: 130, attack: 20, countera
 
 $.each (char1, function(key, value){
 	console.log(key + ':' + value);
-	$('#c1').append(key + ':' + value);
+	$('#c1Stats').append(key + ':' + value);
 	
 });
 
 $.each (char2, function(key, value){
 	console.log(key + ':' + value);
-	$('#c2').append(key + ':' + value);
+	$('#c2Stats').append(key + ':' + value);
 	
 });
 
 $.each (char3, function(key, value){
 	console.log(key + ':' + value);
-	$('#c3').append(key + ':' + value);
+	$('#c3Stats').append(key + ':' + value);
 	
 });
 
 $.each (char4, function(key, value){
 	console.log(key + ':' + value);
-	$('#c4').append(key + ':' + value);
+	$('#c4Stats').append(key + ':' + value);
 	
 });
 
@@ -60,20 +60,36 @@ $.each (char4, function(key, value){
 	function chooseCharacter() {
 		$('.character').click(function(event){
 			console.log('clicked');
-			// if(char1){
-			// 	$('.opponent-container').append('#char2');
-			// 	$('.opponent-container').append('#char3');
-			// 	$('.opponent-container').append('#char4');
-			// }
 			});
-		$('#char1').click(function(event){
+		$('#c1').click(function(event){
 			console.log('clicked');
-				$('.opponent-container').append('#c2');
+				$('#c1').appendTo('.image-container');
+				$('#c2').appendTo('.opponent-container');
 				$('#c3').appendTo('.opponent-container');
-				$('.opponent-container').append('#char4');
+				$('#c4').appendTo('.opponent-container');
+			});
+		$('#c2').click(function(event){
+			console.log('clicked');
+				$('#c2').appendTo('.image-container');
+				$('#c1').appendTo('.opponent-container');
+				$('#c3').appendTo('.opponent-container');
+				$('#c4').appendTo('.opponent-container');
+			});
+		$('#c3').click(function(event){
+			console.log('clicked');
+				$('#c3').appendTo('.image-container');
+				$('#c2').appendTo('.opponent-container');
+				$('#c1').appendTo('.opponent-container');
+				$('#c4').appendTo('.opponent-container');
+			});
+		$('#c4').click(function(event){
+			console.log('clicked');
+				$('#c4').appendTo('.image-container');
+				$('#c2').appendTo('.opponent-container');
+				$('#c3').appendTo('.opponent-container');
+				$('#c1').appendTo('.opponent-container');
 			});
 		}
-	
 
 	chooseCharacter();
 		// function for game stats and progress
