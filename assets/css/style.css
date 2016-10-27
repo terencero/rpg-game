@@ -1,3 +1,21 @@
 h2 {
 	border: solid black 2px;
 }
+
+.character {
+	position: relative;
+	display: block;
+	float: left;
+}
+
+.character-container {
+	position: relative;
+	display: block-inline;
+	float: left;
+}
+
+.opponent-container {
+	position: relative;
+	display: block-inline;
+	float: left;
+}
