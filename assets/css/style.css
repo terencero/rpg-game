@@ -2,31 +2,21 @@ h2 {
 	border: solid black 2px;
 }
 
-.character {
+.character, .defender {
 	position: relative;
 	display: block;
 	float: left;
+	padding: 20px;
 }
 
-/*.character-container {
-	position: relative;
-	display: block-inline;
-	float: left;
-}*/
-
-.opponent-container {
-	position: relative;
-	display: block-inline;
-	float: left;
-}
-
-div img {
-	position: relative;
-	float: left;
-	display: block;
-}
 
 div {
 	position: static;
 	display: inline-block;
 }
+
+.character-container, .opponent, .defender-container {
+	display: block;
+}
+
+
