@@ -2,20 +2,21 @@ h2 {
 	border: solid black 2px;
 }
 
-.character, .defender {
+#c1, #c2, #c3, #c4  {
 	position: relative;
-	display: block;
-	float: left;
+	display: inline-block;
+	
 	padding: 20px;
 }
 
 
-div {
-	position: static;
-	display: inline-block;
+div img {
+	position: relative;
+	display: block;
 }
 
-.character-container, .opponent, .defender-container {
+.character-container, .opponent-container, .defender-container, .your-character {
+	position: relative;
 	display: block;
 }
 
@@ -24,5 +25,7 @@ body {
 	background-repeat: no-repeat; 
 	background-size: cover;
 	background-position: center;
+	color: white;
 }
+
 

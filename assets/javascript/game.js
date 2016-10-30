@@ -17,7 +17,6 @@ $('#c1name').append(char1[0]);
 $('#c1Stats').append(char1[1]);
 $('#c1Stats').append(char1[2]);
 
-
 $('#c2name').append(char2[0]);
 $('#c2Stats').append(char2[1]);
 $('#c2Stats').append(char2[2]);
@@ -30,12 +29,6 @@ $('#c4name').append(char4[0]);
 $('#c4Stats').append(char4[1]);
 $('#c4Stats').append(char4[2]);
 
-
-
- 
- 
- 
-
 // move character images in correct divs
 	// if character chosen, then move other characters to opponent container
 
@@ -45,46 +38,28 @@ $('#c4Stats').append(char4[2]);
 		$('.character').click(function(event){
  			console.log('clicked');
 			});	
-			var userChoice1 = $('#c1').click(function(event){
+
+			$('.character').click(function(event){ 
 				console.log('clicked1');
-		
-				$('#c1').appendTo('.image-container');
-				$('#c2').appendTo('.opponent-container').attr('id', 'defender2');
- 				$('#c3').appendTo('.opponent-container').attr('id', 'defender3');
- 				$('#c4').appendTo('.opponent-container').attr('id', 'defender4');
- 				
 
- 				});
+				$(this).appendTo('.your-character').attr('class', 'main-char');
+				$('.character').appendTo('.opponent-container').attr('class', 'opponent');
+				
+					// second click event nested in first click even works...				
+					$('.opponent').click(function(event){ 
+					console.log('defender clicked');
+		 			$(this).appendTo('.defender-container').attr('class', 'defender');
+	 				$('.character').appendTo('.opponent-container').attr('class', 'opponent');		
 					
-			var userChoice2 = $('#c2').click(function(event){
-				console.log('clicked2');
-			
-				$('#c2').appendTo('.image-container');
-				$('#c1').appendTo('.opponent-container').attr('id', 'defender1');
-				$('#c3').appendTo('.opponent-container').attr('id', 'defender3');
- 				$('#c4').appendTo('.opponent-container').attr('id', 'defender4');
- 				});
+					}); // end of .opponent click event
 
-			var userChoice3 = $('#c3').click(function(event){
-				console.log('clicked3');
-			
-				$('#c3').appendTo('.image-container');
-				$('#c1').appendTo('.opponent-container').attr('id', 'defender1');
-				$('#c2').appendTo('.opponent-container').attr('id', 'defender2');
- 				$('#c4').appendTo('.opponent-container').attr('id', 'defender4');
- 				});
+				}); // end of .character click event
 
-			var userChoice4 = $('#c4').click(function(event){
-				console.log('clicked4'); 
-	
-				$('#c4').appendTo('.image-container');
-				$('#c1').appendTo('.opponent-container').attr('id', 'defender1');
- 				$('#c2').appendTo('.opponent-container').attr('id', 'defender2');
-				$('#c3').appendTo('.opponent-container').attr('id', 'defender3');
+		} // end of chooseCharacter function
 
-				});
+	chooseCharacter();  // call the function
 
-		}
+	function attach() {
+		
+	}
 
-chooseCharacter();
-// 
