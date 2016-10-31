@@ -59,7 +59,12 @@ $('#c4Stats').append(char4[2]);
 
 	chooseCharacter();  // call the function
 
-	function attach() {
-		
+	function attack() {
+		var char1Hp = char1[1];
+		$('#attack').click(function(event){
+			for (var i = 0; i < char1Hp; i++) {
+				Things[i]
+			}
+		});
 	}
 
