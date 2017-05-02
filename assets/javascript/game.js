@@ -31,31 +31,39 @@ document.querySelector('#c4Stats').textContent = char4[2];
 
 // move character images in correct divs
 
-let promise = chooseCharacter().then((result) => {
+let promise = chooseCharacter().then(() => {
 	return setOpponents();
-}).then((result) => {
+}).then(() => {
 	return setDefender();
 }).catch(setError);
 
 // function to assign initial attack points for character selected and consistent counter attack points
 // if character chosen, assign initial attack points, else assign counterattack points
 function chooseCharacter() {
-	return new Promise((success, failure) => {
+	console.log(document.querySelectorAll('.character'));
 		let character = document.querySelectorAll('.character');
 		let mainChar;
-		for (i = 0; i < character.length; i++) {
-			character[i].addEventListener('click', (event) => {
+		console.log(character);
+	return new Promise((success, failure) => {
+		character.forEach((char) => {
+			char.addEventListener('click', (event) => {
 				mainChar = event.target.offsetParent;
 				console.log('>>>', mainChar)
 				document.querySelector('.your-character').appendChild(mainChar).classList.add('main-char');
 				mainChar.classList.remove('character');
-				success(success);
+		success();
 			});
-		}
-		// return document.querySelectorAll('.character');
+		}, this); 
+
 		console.log('>', mainChar);
 
-
+	// }).then(() => {
+	// 	let opponents = document.querySelectorAll('.character');
+	// 	console.log(opponents);
+	// 	opponents.forEach((opp) => {
+	// 		document.querySelector('.opponent-container').appendChild(opp).classList.add('opponent');
+	// 		opp.classList.remove('character');
+	// 	});
 	}); // end of chooseCharacter function
 }
 
@@ -67,26 +75,31 @@ function setOpponents() {
 			document.querySelector('.opponent-container').appendChild(opponents[i]).classList.add('opponent');
 			opponents[i].classList.remove('character');
 		}
-		success();
 	});
+	success();
 }
-// setOpponents();
+
 
 function setDefender() {
 	// promise to select any of the opponents as a defender	
-	return new Promise((success, failure) => {			
-	document.querySelector('.opponent').addEventListener('click', (event) => {
-		console.log('defender clicked');
-		let defenderChar = event.target.offsetParent;
-
-		defenderChar.classList.remove('opponent');
-		document.querySelector('.defender-container').appendChild(defenderChar).classList.add('defender');
+	return new Promise((success, failure) => {
+		let defender = document.querySelectorAll('.opponent');
+		let mainDef;
+		for (i = 0; i < defender.length; i++) {
+			defender[i].addEventListener('click', (event) => {
+				mainDef = event.target.offsetParent;
+				console.log('mainD', mainDef)
+				document.querySelector('.defender-character').appendChild(mainDef).classList.add('main-def');
+				mainDef.classList.remove('opponent');
+				success(success);
+			});
+		}
 
 		// end of .opponent click event
 
 	}); // end of .character click event
-	})
 }
+
 // setDefender();
 
 // error handler
