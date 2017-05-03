@@ -6,9 +6,30 @@ let char1 = ['Yoda', 'hp: 180 ', 'attack: 20 ', 'counterattack: 10'];
 let char2 = ['Obi Wan', 'hp: 150 ', 'attack: 20 ', 'counterattack: 10'];
 let char3 = ['Darth Sidious', 'hp: 170 ', 'attack: 20 ', 'counterattack: 10'];
 let char4 = ['Darth Vader', 'hp: 130 ', 'attack: 20 ', 'counterattack: 10'];
-
-
-
+/*let char1 = {
+	charName: 'Yoda',
+	hp: '180',
+	attack: '20',
+	counterattack: '10'
+};
+let char2 = {
+	charName: 'Obi Wan',
+	hp: '150',
+	attack: '20',
+	counterattack: '10'
+};
+let char3 = {
+	charName: 'Darth Sidious',
+	hp: '170',
+	attack: '20',
+	counterattack: '10'
+};
+let char4 = {
+	charName: 'Darth Vader',
+	hp: '130',
+	attack: '20',
+	counterattack: '10'
+};*/
 // function to set game board
 //set intial stats (hp points)
 
@@ -31,7 +52,7 @@ document.querySelector('#c4Stats').textContent = char4[2];
 
 // move character images in correct divs
 
-let promise = chooseCharacter().then(() => {
+chooseCharacter().then(() => {
 	return setOpponents();
 }).then(() => {
 	return setDefender();
@@ -39,11 +60,13 @@ let promise = chooseCharacter().then(() => {
 
 // function to assign initial attack points for character selected and consistent counter attack points
 // if character chosen, assign initial attack points, else assign counterattack points
+
+// chooseCharacter function that chooses main character
 function chooseCharacter() {
-	console.log(document.querySelectorAll('.character'));
-		let character = document.querySelectorAll('.character');
-		let mainChar;
-		console.log(character);
+	console.log('chooseChar', document.querySelectorAll('.character'));
+	let character = document.querySelectorAll('.character');
+	let mainChar;
+	console.log(character);
 	return new Promise((success, failure) => {
 		character.forEach((char) => {
 			char.addEventListener('click', (event) => {
@@ -51,23 +74,17 @@ function chooseCharacter() {
 				console.log('>>>', mainChar)
 				document.querySelector('.your-character').appendChild(mainChar).classList.add('main-char');
 				mainChar.classList.remove('character');
-		success();
+				success();
 			});
-		}, this); 
+		}, this);
 
 		console.log('>', mainChar);
-
-	// }).then(() => {
-	// 	let opponents = document.querySelectorAll('.character');
-	// 	console.log(opponents);
-	// 	opponents.forEach((opp) => {
-	// 		document.querySelector('.opponent-container').appendChild(opp).classList.add('opponent');
-	// 		opp.classList.remove('character');
-	// 	});
-	}); // end of chooseCharacter function
+	});
 }
 
+// setOpponents function that moves all other characters to the opponents section
 function setOpponents() {
+	console.log('something');
 	return new Promise((success, failure) => {
 		let opponents = document.querySelectorAll('.character');
 		console.log(opponents);
@@ -75,32 +92,29 @@ function setOpponents() {
 			document.querySelector('.opponent-container').appendChild(opponents[i]).classList.add('opponent');
 			opponents[i].classList.remove('character');
 		}
+		success();
 	});
-	success();
 }
 
-
+// setDefender function to choose the character that main character will attack
 function setDefender() {
 	// promise to select any of the opponents as a defender	
+	console.log('opps', document.querySelectorAll('.opponent'));
+	let defender = document.querySelectorAll('.opponent');
+	console.log('def', defender);
+	let mainDef;
 	return new Promise((success, failure) => {
-		let defender = document.querySelectorAll('.opponent');
-		let mainDef;
 		for (i = 0; i < defender.length; i++) {
 			defender[i].addEventListener('click', (event) => {
 				mainDef = event.target.offsetParent;
 				console.log('mainD', mainDef)
-				document.querySelector('.defender-character').appendChild(mainDef).classList.add('main-def');
+				document.querySelector('.defender-container').appendChild(mainDef).classList.add('main-def');
 				mainDef.classList.remove('opponent');
-				success(success);
 			});
 		}
-
-		// end of .opponent click event
-
-	}); // end of .character click event
+		success();
+	});
 }
-
-// setDefender();
 
 // error handler
 function setError() {
@@ -109,9 +123,17 @@ function setError() {
 
 function attack() {
 	var char1Hp = char1[1];
-	$('#attack').click(function (event) {
+	document.querySelector('#attack').addEventListener('click', (event) => {
+		let defender = document.querySelector('.main-def');
+		let mainCharacter = document.querySelector('.main-char');
+
+		console.log('defender',defender);
+		console.log('click');
+	});
+	/*$('#attack').click(function (event) {
 		for (var i = 0; i < char1Hp; i++) {
 			Things[i]
 		}
-	});
+	});*/
 }
+attack();
