@@ -89,7 +89,6 @@ function chooseCharacter() {
 // setOpponents function that moves all other characters to the opponents section
 function setOpponents(charData) {
 	console.log('chardata 1', charData);
-	console.log('something');
 	let opponents = document.querySelectorAll('.character');
 	console.log(opponents);
 	for (i = 0; i < opponents.length; i++) {
@@ -125,19 +124,38 @@ function setError() {
 	console.log('There was an error setting the game board.');
 }
 
+// function to handle the attack and score keeping
 function attack(charData) {
-	// var char1Hp = char1.hp;
-	let char1Hp = char1.hp;
-	let defendingChar;
-
-
 	document.querySelector('#attack').addEventListener('click', (event) => {
-		let defender = document.querySelector('.main-def');
+		// variables to capture main (your) character and the defending characters through their class attributes
 		let mainCharacter = document.querySelector('.main-char');
-		console.log('data from chooseChar', charData);
-		console.log('defender', defender);
-		console.log('def id', defender.id);
-		console.log('click');
+		let defenderCharacter = document.querySelector('.main-def');
+		// store the data attribute of the main and defending characters into variables; data attributes share the same name as the character object names in global scope
+		let mainChar = mainCharacter.dataset.objId;
+		let defenderChar = defenderCharacter.dataset.objId;
+
+		// conditionals to match up character data attr to their global object variables 
+		if (mainChar === 'char1') {
+			mainChar = char1;
+		} else if (mainChar === 'char2') {
+			mainChar = char2;
+		} else if (mainChar === 'char3') {
+			mainChar = char3;
+		} else if (mainChar === 'char4') {
+			mainChar = char4;
+		}
+		console.log('mainchar', mainChar);
+		if (defenderChar === 'char1') {
+			defenderChar = char1;
+		} else if (defenderChar === 'char2') {
+			defenderChar = char2;
+		} else if (defenderChar === 'char3') {
+			defenderChar = char3;
+		} else if (defenderChar === 'char4') {
+			defenderChar = char4;
+		}
+		console.log('defchar', defenderChar);
+
 	});
 	/*$('#attack').click(function (event) {
 		for (var i = 0; i < char1Hp; i++) {
