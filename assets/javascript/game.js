@@ -84,7 +84,6 @@ function chooseCharacter() {
 				document.querySelector('.your-character').appendChild(mainChar).classList.add('main-char');
 				mainChar.classList.remove('character');
 				success(mainChar);
-
 			});
 		}, this);
 	});
@@ -161,8 +160,8 @@ function attack(charData) {
 			defenderChar = char4;
 		}
 		console.log('defchar', defenderChar);
-		char2.hp = defenderChar.hp - mainChar.attack;
-		console.log('>>>>>>',char2.hp);
+		defenderChar.hp = defenderChar.hp - mainChar.attack;
+		console.log('>>>>>>',defenderChar.hp);
 		setGameBoard();
 	});
 		
