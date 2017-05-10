@@ -8,32 +8,34 @@
 // let char4 = ['Darth Vader', 'hp: 130 ', 'attack: 20 ', 'counterattack: 10'];
 let char1 = {
 	charName: 'Yoda',
-	hp: '180',
-	attack: '20',
-	counterattack: '10'
+	hp: 180,
+	attack: 20,
+	counterattack: 10
 };
 let char2 = {
 	charName: 'Obi Wan',
-	hp: '150',
-	attack: '20',
-	counterattack: '10'
+	hp: 150,
+	attack: 20,
+	counterattack: 10
 };
 let char3 = {
 	charName: 'Darth Sidious',
-	hp: '170',
-	attack: '20',
-	counterattack: '10'
+	hp: 170,
+	attack: 20,
+	counterattack: 10
 };
 let char4 = {
 	charName: 'Darth Vader',
-	hp: '130',
-	attack: '20',
-	counterattack: '10'
+	hp: 130,
+	attack: 20,
+	counterattack: 10
 };
 // function to set game board
 //set intial stats (hp points)
 
 // vanilla javascript
+function setGameBoard() {
+	return new Promise((success, failure) => {
 document.querySelector('#c1name').innerHTML = char1.charName;
 document.querySelector('#c1Hp').innerHTML = 'HP: ' + char1.hp;
 document.querySelector('#c1Attack').innerHTML = 'Attack: ' + char1.attack;
@@ -49,10 +51,14 @@ document.querySelector('#c3Attack').textContent = 'Attack: ' + char3.attack;
 document.querySelector('#c4name').textContent = char4.charName;
 document.querySelector('#c4Hp').textContent = 'HP: ' + char4.hp;
 document.querySelector('#c4Attack').textContent = 'Attack: ' + char4.attack;
-
+success();
+});
+}
 // move character images in correct divs
 
-chooseCharacter().then((charData) => {
+setGameBoard().then(() =>{
+	return chooseCharacter();
+}).then((charData) => {
 	return setOpponents(charData);
 }).then((charData) => {
 	return setDefender(charData);
@@ -81,8 +87,6 @@ function chooseCharacter() {
 
 			});
 		}, this);
-
-		console.log('>', mainChar);
 	});
 }
 
@@ -103,7 +107,7 @@ function setOpponents(charData) {
 function setDefender(charData) {
 	// select any of the opponents as a defender	
 	console.log('chardata 2', charData)
-	console.log('opps', document.querySelectorAll('.opponent'));
+	// console.log('opps', document.querySelectorAll('.opponent'));
 	let defender = document.querySelectorAll('.opponent');
 	console.log('def', defender);
 	let mainDef;
@@ -126,6 +130,8 @@ function setError() {
 
 // function to handle the attack and score keeping
 function attack(charData) {
+	// let char2Hp;
+		
 	document.querySelector('#attack').addEventListener('click', (event) => {
 		// variables to capture main (your) character and the defending characters through their class attributes
 		let mainCharacter = document.querySelector('.main-char');
@@ -155,8 +161,11 @@ function attack(charData) {
 			defenderChar = char4;
 		}
 		console.log('defchar', defenderChar);
-
+		char2.hp = defenderChar.hp - mainChar.attack;
+		console.log('>>>>>>',char2.hp);
+		setGameBoard();
 	});
+		
 	/*$('#attack').click(function (event) {
 		for (var i = 0; i < char1Hp; i++) {
 			Things[i]
