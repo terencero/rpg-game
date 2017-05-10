@@ -1,11 +1,6 @@
 // global variables
+// stats keys: hp, attack points, counter attack points
 
-// stats variables: hp var, attack points var, counter attack points var
-
-// let char1 = ['Yoda', 'hp: 180 ', 'attack: 20 ', 'counterattack: 10'];
-// let char2 = ['Obi Wan', 'hp: 150 ', 'attack: 20 ', 'counterattack: 10'];
-// let char3 = ['Darth Sidious', 'hp: 170 ', 'attack: 20 ', 'counterattack: 10'];
-// let char4 = ['Darth Vader', 'hp: 130 ', 'attack: 20 ', 'counterattack: 10'];
 let char1 = {
 	charName: 'Yoda',
 	hp: 180,
@@ -30,10 +25,8 @@ let char4 = {
 	attack: 20,
 	counterattack: 10
 };
-// function to set game board
-//set intial stats (hp points)
 
-// vanilla javascript
+// function to set game board and initial stats
 function setGameBoard() {
 	return new Promise((success, failure) => {
 document.querySelector('#c1name').innerHTML = char1.charName;
