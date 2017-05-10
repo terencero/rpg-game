@@ -29,27 +29,28 @@ let char4 = {
 // function to set game board and initial stats
 function setGameBoard() {
 	return new Promise((success, failure) => {
-document.querySelector('#c1name').innerHTML = char1.charName;
-document.querySelector('#c1Hp').innerHTML = 'HP: ' + char1.hp;
-document.querySelector('#c1Attack').innerHTML = 'Attack: ' + char1.attack;
+		document.querySelector('#c1name').innerHTML = char1.charName;
+		document.querySelector('#c1Hp').innerHTML = 'HP: ' + char1.hp;
+		document.querySelector('#c1Attack').innerHTML = 'Attack: ' + char1.attack;
 
-document.querySelector('#c2name').textContent = char2.charName;
-document.querySelector('#c2Hp').textContent = 'HP: ' + char2.hp;
-document.querySelector('#c2Attack').textContent = 'Attack: ' + char2.attack;
+		document.querySelector('#c2name').textContent = char2.charName;
+		document.querySelector('#c2Hp').textContent = 'HP: ' + char2.hp;
+		document.querySelector('#c2Attack').textContent = 'Attack: ' + char2.attack;
 
-document.querySelector('#c3name').textContent = char3.charName;
-document.querySelector('#c3Hp').textContent = 'HP: ' + char3.hp;
-document.querySelector('#c3Attack').textContent = 'Attack: ' + char3.attack;
+		document.querySelector('#c3name').textContent = char3.charName;
+		document.querySelector('#c3Hp').textContent = 'HP: ' + char3.hp;
+		document.querySelector('#c3Attack').textContent = 'Attack: ' + char3.attack;
 
-document.querySelector('#c4name').textContent = char4.charName;
-document.querySelector('#c4Hp').textContent = 'HP: ' + char4.hp;
-document.querySelector('#c4Attack').textContent = 'Attack: ' + char4.attack;
-success();
-});
+		document.querySelector('#c4name').textContent = char4.charName;
+		document.querySelector('#c4Hp').textContent = 'HP: ' + char4.hp;
+		document.querySelector('#c4Attack').textContent = 'Attack: ' + char4.attack;
+		console.log('test stats', char2)
+		success();
+	});
 }
 // move character images in correct divs
-
-setGameBoard().then(() =>{
+reset();
+setGameBoard().then(() => {
 	return chooseCharacter();
 }).then((charData) => {
 	return setOpponents(charData);
@@ -76,6 +77,7 @@ function chooseCharacter() {
 				console.log('>>>', mainChar)
 				document.querySelector('.your-character').appendChild(mainChar).classList.add('main-char');
 				mainChar.classList.remove('character');
+				console.log()
 				success(mainChar);
 			});
 		}, this);
@@ -123,7 +125,7 @@ function setError() {
 // function to handle the attack and score keeping
 function attack(charData) {
 	// let char2Hp;
-		
+
 	document.querySelector('#attack').addEventListener('click', (event) => {
 		// variables to capture main (your) character and the defending characters through their class attributes
 		let mainCharacter = document.querySelector('.main-char');
@@ -154,13 +156,40 @@ function attack(charData) {
 		}
 		console.log('defchar', defenderChar);
 		defenderChar.hp = defenderChar.hp - mainChar.attack;
-		console.log('>>>>>>',defenderChar.hp);
+		console.log('>>>>>>', defenderChar.hp);
 		setGameBoard();
 	});
-		
-	/*$('#attack').click(function (event) {
-		for (var i = 0; i < char1Hp; i++) {
-			Things[i]
-		}
-	});*/
+}
+
+function reset() {
+	document.querySelector('#reset').addEventListener('click', (event) => {
+	char1 = {
+		charName: 'Yoda',
+		hp: 180,
+		attack: 20,
+		counterattack: 10
+	};
+	char2 = {
+		charName: 'Obi Wan',
+		hp: 150,
+		attack: 20,
+		counterattack: 10
+	};
+	char3 = {
+		charName: 'Darth Sidious',
+		hp: 170,
+		attack: 20,
+		counterattack: 10
+	};
+	char4 = {
+		charName: 'Darth Vader',
+		hp: 130,
+		attack: 20,
+		counterattack: 10
+	};
+	let resetPlayers = document.querySelectorAll('.players');
+	for(i=0; i<resetPlayers.length; i++) {
+	document.querySelector('.character-container').appendChild(resetPlayers[i]);
+	}
+	});
 }
