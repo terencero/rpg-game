@@ -49,17 +49,14 @@ function setGameBoard() {
 	});
 }
 // move character images in correct divs
-reset();
 setGameBoard().then(() => {
 	return chooseCharacter();
-}).then((charData) => {
-	return setOpponents(charData);
 }).then((charData) => {
 	return setDefender(charData);
 }).then((charData) => {
 	return attack(charData);
-}).
-catch(setError);
+}).catch(setError);
+
 
 // function to assign initial attack points for character selected and consistent counter attack points
 // if character chosen, assign initial attack points, else assign counterattack points
@@ -77,24 +74,19 @@ function chooseCharacter() {
 				console.log('>>>', mainChar)
 				document.querySelector('.your-character').appendChild(mainChar).classList.add('main-char');
 				mainChar.classList.remove('character');
-				console.log()
 				success(mainChar);
 			});
 		}, this);
-	});
-}
 
-// setOpponents function that moves all other characters to the opponents section
-function setOpponents(charData) {
-	console.log('chardata 1', charData);
-	let opponents = document.querySelectorAll('.character');
-	console.log(opponents);
-	for (i = 0; i < opponents.length; i++) {
-		document.querySelector('.opponent-container').appendChild(opponents[i]).classList.add('opponent');
-		opponents[i].classList.remove('character');
-	}
-
-	return charData;
+	}).then((charData) => {
+		let opponents = document.querySelectorAll('.character');
+		console.log(opponents);
+		for (i = 0; i < opponents.length; i++) {
+			document.querySelector('.opponent-container').appendChild(opponents[i]).classList.add('opponent');
+			opponents[i].classList.remove('character');
+		}
+		return charData;
+	})
 }
 
 // setDefender function to choose the character that main character will attack
@@ -113,7 +105,6 @@ function setDefender(charData) {
 			mainDef.classList.remove('opponent');
 		});
 	}
-
 	return charData;
 }
 
@@ -124,7 +115,6 @@ function setError() {
 
 // function to handle the attack and score keeping
 function attack(charData) {
-	// let char2Hp;
 
 	document.querySelector('#attack').addEventListener('click', (event) => {
 		// variables to capture main (your) character and the defending characters through their class attributes
@@ -162,34 +152,40 @@ function attack(charData) {
 }
 
 function reset() {
+
 	document.querySelector('#reset').addEventListener('click', (event) => {
-	char1 = {
-		charName: 'Yoda',
-		hp: 180,
-		attack: 20,
-		counterattack: 10
-	};
-	char2 = {
-		charName: 'Obi Wan',
-		hp: 150,
-		attack: 20,
-		counterattack: 10
-	};
-	char3 = {
-		charName: 'Darth Sidious',
-		hp: 170,
-		attack: 20,
-		counterattack: 10
-	};
-	char4 = {
-		charName: 'Darth Vader',
-		hp: 130,
-		attack: 20,
-		counterattack: 10
-	};
-	let resetPlayers = document.querySelectorAll('.players');
-	for(i=0; i<resetPlayers.length; i++) {
-	document.querySelector('.character-container').appendChild(resetPlayers[i]);
-	}
+		char1 = {
+			charName: 'Yoda',
+			hp: 180,
+			attack: 20,
+			counterattack: 10
+		};
+		char2 = {
+			charName: 'Obi Wan',
+			hp: 150,
+			attack: 20,
+			counterattack: 10
+		};
+		char3 = {
+			charName: 'Darth Sidious',
+			hp: 170,
+			attack: 20,
+			counterattack: 10
+		};
+		char4 = {
+			charName: 'Darth Vader',
+			hp: 130,
+			attack: 20,
+			counterattack: 10
+		};
+		let resetPlayers = document.querySelectorAll('.players');
+		let charContainer = document.querySelector('.character-container');
+		for (i = 0; i < resetPlayers.length; i++) {
+			charContainer.appendChild(resetPlayers[i]).classList.add('character');
+			resetPlayers[i].classList.remove('main-char', 'opponent', 'main-def');
+		}
+		chooseCharacter();
 	});
+
 }
+reset();
