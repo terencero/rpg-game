@@ -154,6 +154,15 @@ function attack(charData) {
 		console.log('defchar', defenderChar);
 		defenderChar.hp = defenderChar.hp - mainChar.attack;
 		console.log('>>>>>>', defenderChar.hp);
+
+		let modal = document.querySelector('#winner-modal');
+		let modalClose = document.querySelector('.close');
+		if (defenderChar.hp <= 0) {
+			modal.style.display = 'block';
+			modalClose.onclick = () =>{
+			modal.style.display = 'none';
+			}
+		}
 		setGameBoard();
 	});
 }
