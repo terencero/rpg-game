@@ -45,16 +45,20 @@ function setGameBoard() {
 		document.querySelector('#c4Hp').textContent = 'HP: ' + char4.hp;
 		document.querySelector('#c4Attack').textContent = 'Attack: ' + char4.attack;
 		console.log('test stats', char2)
+		chooseCharacter();
 		success();
 	});
 }
 // move character images in correct divs
 setGameBoard().then(() => {
-	return chooseCharacter();
+	// promise - choose the main character then move other characters in opponents container
+	return chooseCharacter(); 
 }).then((charData) => {
+	// choose the defending character
+	// charData passes the main character attr and data
 	return setDefender(charData);
 }).then((charData) => {
-	return attack(charData);
+	return attack();
 }).catch(setError);
 
 
@@ -76,7 +80,7 @@ function chooseCharacter() {
 				mainChar.classList.remove('character');
 				success(mainChar);
 			});
-		}, this);
+		});
 
 	}).then((charData) => {
 		let opponents = document.querySelectorAll('.character');
@@ -85,8 +89,9 @@ function chooseCharacter() {
 			document.querySelector('.opponent-container').appendChild(opponents[i]).classList.add('opponent');
 			opponents[i].classList.remove('character');
 		}
+		setDefender();
 		return charData;
-	})
+	});
 }
 
 // setDefender function to choose the character that main character will attack
@@ -103,8 +108,10 @@ function setDefender(charData) {
 			console.log('mainD', mainDef)
 			document.querySelector('.defender-container').appendChild(mainDef).classList.add('main-def');
 			mainDef.classList.remove('opponent');
+			mainDef.classList.remove('main-char');
 		});
 	}
+
 	return charData;
 }
 
@@ -152,7 +159,7 @@ function attack(charData) {
 }
 
 function reset() {
-
+	// when reset button is clicked, stats are reset and characters move back to "characters available" container
 	document.querySelector('#reset').addEventListener('click', (event) => {
 		char1 = {
 			charName: 'Yoda',
@@ -184,8 +191,8 @@ function reset() {
 			charContainer.appendChild(resetPlayers[i]).classList.add('character');
 			resetPlayers[i].classList.remove('main-char', 'opponent', 'main-def');
 		}
-		chooseCharacter();
+		// call the setGameBoard function to allow user to reset character stats and choose a new character
+		setGameBoard();
 	});
-
 }
 reset();
