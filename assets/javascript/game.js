@@ -26,6 +26,8 @@ let char4 = {
 	counterattack: 10
 };
 
+let defeatedCount = 0;
+
 // function to set game board and initial stats
 function setGameBoard() {
 	return new Promise((success, failure) => {
@@ -130,6 +132,8 @@ function attack(charData) {
 		// store the data attribute of the main and defending characters into variables; data attributes share the same name as the character object names in global scope
 		let mainChar = mainCharacter.dataset.objId;
 		let defenderChar = defenderCharacter.dataset.objId;
+		// select div container with class 'defeated-container'; store in variable 'defeated'
+		let defeated = document.querySelector('.defeated-container');
 
 		// conditionals to match up character data attr to their global object variables 
 		if (mainChar === 'char1') {
@@ -154,10 +158,17 @@ function attack(charData) {
 		console.log('defchar', defenderChar);
 		defenderChar.hp = defenderChar.hp - mainChar.attack;
 		console.log('>>>>>>', defenderChar.hp);
+		if (defenderChar.hp <= 0) {
+			defeated.appendChild(defenderCharacter).classList.add('defeated');
+			defenderCharacter.classList.remove('main-def');
+			defeatedCount++;
+			
+			console.log('defeated',defeatedCount)
+		}
 
 		let modal = document.querySelector('#winner-modal');
 		let modalClose = document.querySelector('.close');
-		if (defenderChar.hp <= 0) {
+		if (defeatedCount === 3) {
 			modal.style.display = 'block';
 			modalClose.onclick = () =>{
 			modal.style.display = 'none';
@@ -194,6 +205,7 @@ function reset() {
 			attack: 20,
 			counterattack: 10
 		};
+		defeatedCount = 0;
 		let resetPlayers = document.querySelectorAll('.players');
 		let charContainer = document.querySelector('.character-container');
 		for (i = 0; i < resetPlayers.length; i++) {
