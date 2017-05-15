@@ -28,6 +28,19 @@ let char4 = {
 
 let defeatedCount = 0;
 
+// move character images in correct divs
+// function to assign initial attack points for character selected and consistent counter attack points
+setGameBoard().then(() => {
+	// promise - choose the main character then move other characters in opponents container
+	return chooseCharacter();
+}).then((charData) => {
+	// choose the defending character
+	// charData passes the main character attr and data
+	return setDefender(charData);
+}).then((charData) => {
+	return attack();
+}).catch(setError);
+
 // function to set game board and initial stats
 function setGameBoard() {
 	return new Promise((success, failure) => {
@@ -51,20 +64,7 @@ function setGameBoard() {
 		success();
 	});
 }
-// move character images in correct divs
-setGameBoard().then(() => {
-	// promise - choose the main character then move other characters in opponents container
-	return chooseCharacter(); 
-}).then((charData) => {
-	// choose the defending character
-	// charData passes the main character attr and data
-	return setDefender(charData);
-}).then((charData) => {
-	return attack();
-}).catch(setError);
 
-
-// function to assign initial attack points for character selected and consistent counter attack points
 // if character chosen, assign initial attack points, else assign counterattack points
 
 // chooseCharacter function that chooses main character
@@ -83,7 +83,6 @@ function chooseCharacter() {
 				success(mainChar);
 			});
 		});
-
 	}).then((charData) => {
 		let opponents = document.querySelectorAll('.character');
 		console.log(opponents);
@@ -113,7 +112,6 @@ function setDefender(charData) {
 			mainDef.classList.remove('main-char');
 		});
 	}
-
 	return charData;
 }
 
@@ -129,6 +127,16 @@ function attack(charData) {
 		// variables to capture main (your) character and the defending characters through their class attributes
 		let mainCharacter = document.querySelector('.main-char');
 		let defenderCharacter = document.querySelector('.main-def');
+		let defeatOpponentModal = document.querySelector('#defeat-opponent-modal');
+		let modalClose = document.querySelector('.close');
+		if (defenderCharacter === null) {
+			defeatOpponentModal.style.display = 'block';
+			modalClose.onclick = () => {
+				defeatOpponentModal.style.display = 'none';
+			}
+			throw new Error ('pick an opponent');
+			// alert('pick an opponent to attack.');
+		}
 		// store the data attribute of the main and defending characters into variables; data attributes share the same name as the character object names in global scope
 		let mainChar = mainCharacter.dataset.objId;
 		let defenderChar = defenderCharacter.dataset.objId;
@@ -156,22 +164,26 @@ function attack(charData) {
 			defenderChar = char4;
 		}
 		console.log('defchar', defenderChar);
+
 		defenderChar.hp = defenderChar.hp - mainChar.attack;
+
 		console.log('>>>>>>', defenderChar.hp);
+		
 		if (defenderChar.hp <= 0) {
 			defeated.appendChild(defenderCharacter).classList.add('defeated');
 			defenderCharacter.classList.remove('main-def');
 			defeatedCount++;
 			
-			console.log('defeated',defeatedCount)
+			// alert('you defeated' + defenderChar.charName + '! Keep going!');
+			// console.log('defeated', defeatedCount)
 		}
 
-		let modal = document.querySelector('#winner-modal');
-		let modalClose = document.querySelector('.close');
+		let winnerModal = document.querySelector('#winner-modal');
+
 		if (defeatedCount === 3) {
-			modal.style.display = 'block';
-			modalClose.onclick = () =>{
-			modal.style.display = 'none';
+			winnerModal.style.display = 'block';
+			modalClose.onclick = () => {
+				winnerModal.style.display = 'none';
 			}
 		}
 		setGameBoard();
