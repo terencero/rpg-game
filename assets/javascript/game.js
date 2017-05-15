@@ -127,16 +127,6 @@ function attack(charData) {
 		// variables to capture main (your) character and the defending characters through their class attributes
 		let mainCharacter = document.querySelector('.main-char');
 		let defenderCharacter = document.querySelector('.main-def');
-		let defeatOpponentModal = document.querySelector('#defeat-opponent-modal');
-		let modalClose = document.querySelector('.close');
-		if (defenderCharacter === null) {
-			defeatOpponentModal.style.display = 'block';
-			modalClose.onclick = () => {
-				defeatOpponentModal.style.display = 'none';
-			}
-			throw new Error ('pick an opponent');
-			// alert('pick an opponent to attack.');
-		}
 		// store the data attribute of the main and defending characters into variables; data attributes share the same name as the character object names in global scope
 		let mainChar = mainCharacter.dataset.objId;
 		let defenderChar = defenderCharacter.dataset.objId;
@@ -168,18 +158,27 @@ function attack(charData) {
 		defenderChar.hp = defenderChar.hp - mainChar.attack;
 
 		console.log('>>>>>>', defenderChar.hp);
-		
+		// modal to indicate one oppoent has been defeated and to keep going
+		let defeatOpponentModal = document.querySelector('#defeat-opponent-modal');
+		let modalClose2;
 		if (defenderChar.hp <= 0) {
 			defeated.appendChild(defenderCharacter).classList.add('defeated');
 			defenderCharacter.classList.remove('main-def');
 			defeatedCount++;
-			
-			// alert('you defeated' + defenderChar.charName + '! Keep going!');
-			// console.log('defeated', defeatedCount)
+			// get the children of the defeated opponents modal
+			let defeatOpponentChildren = document.querySelector('#defeat-opponent-modal').children;
+			// grab the first child, p tag, and replace with the below message; dynamically change the defeated character's name
+			defeatOpponentChildren[0].innerHTML = 'Way to go! You just defeated ' + defenderChar.charName + '. Keep going! Use the force!' + '<span class="close2">&times;</span>';
+			modalClose2 = document.querySelector('.close2');
+			// document.querySelector('#defeat-modal-content').appendChild(modalElement);
+			defeatOpponentModal.style.display = 'block';
+			modalClose2.onclick = () => {
+				defeatOpponentModal.style.display = 'none';
+			};
 		}
-
+		// winner's modal for defeating all characters
 		let winnerModal = document.querySelector('#winner-modal');
-
+		let modalClose = document.querySelector('.close');
 		if (defeatedCount === 3) {
 			winnerModal.style.display = 'block';
 			modalClose.onclick = () => {
