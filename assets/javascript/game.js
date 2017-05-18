@@ -38,6 +38,7 @@ setGameBoard().then(() => {
 	// charData passes the main character attr and data
 	return setDefender(charData);
 }).then((charData) => {
+	// attack function contains and calls counter attack function
 	return attack();
 }).catch(setError);
 
@@ -128,6 +129,20 @@ function attack(charData) {
 		let mainCharacter = document.querySelector('.main-char');
 		let defenderCharacter = document.querySelector('.main-def');
 		// store the data attribute of the main and defending characters into variables; data attributes share the same name as the character object names in global scope
+		let pickOpponentModal = document.querySelector('#pick-opponent-modal');
+		let modalClose3;
+		if (defenderCharacter === null) {
+			// get the children of the defeated opponents modal
+			let pickOpponentChildren = document.querySelector('#defeat-opponent-modal').children;
+			// grab the first child, p tag, and replace with the below message; dynamically change the defeated character's name
+			pickOpponentChildren[0].innerHTML = 'You must choose another opponent if you wish to continue to attack.' + '<span class="close2">&times;</span>';
+			modalClose3 = document.querySelector('.close3');
+			// document.querySelector('#defeat-modal-content').appendChild(modalElement);
+			pickOpponentModal.style.display = 'block';
+			modalClose3.onclick = () => {
+				pickOpponentModal.style.display = 'none';
+			};
+		}
 		let mainChar = mainCharacter.dataset.objId;
 		let defenderChar = defenderCharacter.dataset.objId;
 		// select div container with class 'defeated-container'; store in variable 'defeated'
@@ -152,10 +167,11 @@ function attack(charData) {
 			defenderChar = char3;
 		} else if (defenderChar === 'char4') {
 			defenderChar = char4;
-		}
+		} 
 		console.log('defchar', defenderChar);
 
 		defenderChar.hp = defenderChar.hp - mainChar.attack;
+		counterAttack();
 
 		console.log('>>>>>>', defenderChar.hp);
 		// modal to indicate one oppoent has been defeated and to keep going
@@ -185,9 +201,15 @@ function attack(charData) {
 				winnerModal.style.display = 'none';
 			}
 		}
+
+		function counterAttack() {
+			console.log('counterAttack func test', mainChar);
+			mainChar.hp = mainChar.hp - defenderChar.counterattack
+		}
 		setGameBoard();
 	});
 }
+
 
 function reset() {
 	// when reset button is clicked, stats are reset and characters move back to "characters available" container

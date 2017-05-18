@@ -81,3 +81,19 @@ body {
 	text-decoration: none;
 	cursor: pointer;
 }
+
+/* modal close3 to pick another opponent */
+
+.close3 {
+	color: #aaa;
+	float: right;
+	font-size: 28px;
+	font-weight: bold;
+}
+
+.close3:hover,
+.close3:focus {
+	color: black;
+	text-decoration: none;
+	cursor: pointer;
+}
