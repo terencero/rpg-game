@@ -167,7 +167,7 @@ function attack(charData) {
 			defenderChar = char3;
 		} else if (defenderChar === 'char4') {
 			defenderChar = char4;
-		} 
+		}
 		console.log('defchar', defenderChar);
 
 		defenderChar.hp = defenderChar.hp - mainChar.attack;
@@ -205,6 +205,20 @@ function attack(charData) {
 		function counterAttack() {
 			console.log('counterAttack func test', mainChar);
 			mainChar.hp = mainChar.hp - defenderChar.counterattack
+			let mainDefeatedModal = document.querySelector('#main-defeated-modal');
+			let modalClose4;
+			if (mainChar.hp <= 0) {
+				// get the children of the defeated opponents modal
+				let mainDefeatedChildren = mainDefeatedModal.children;
+				// grab the first child, p tag, and replace with the below message; dynamically change the defeated character's name
+				mainDefeatedChildren[0].innerHTML = 'Oh no! You\'ve been defeated ' + mainChar.charName + ' !' + '<span class="close4">&times;</span>';
+				modalClose4 = document.querySelector('.close4');
+				// document.querySelector('#defeat-modal-content').appendChild(modalElement);
+				mainDefeatedModal.style.display = 'block';
+				modalClose4.onclick = () => {
+					mainDefeatedModal.style.display = 'none';
+				};
+			}
 		}
 		setGameBoard();
 	});
