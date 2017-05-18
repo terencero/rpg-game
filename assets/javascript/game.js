@@ -135,7 +135,7 @@ function attack(charData) {
 			// get the children of the defeated opponents modal
 			let pickOpponentChildren = document.querySelector('#pick-opponent-modal').children;
 			// grab the first child, p tag, and replace with the below message; dynamically change the defeated character's name
-			pickOpponentChildren[0].innerHTML = 'You must choose another opponent if you wish to continue to attack.' + '<span class="close2">&times;</span>';
+			pickOpponentChildren[0].innerHTML = 'You must choose another opponent if you wish to continue to attack.' + '<span class="close3">&times;</span>';
 			modalClose3 = document.querySelector('.close3');
 			// document.querySelector('#defeat-modal-content').appendChild(modalElement);
 			pickOpponentModal.style.display = 'block';
