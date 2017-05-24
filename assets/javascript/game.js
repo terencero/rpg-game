@@ -1,6 +1,5 @@
 // global variables
 // stats keys: hp, attack points, counter attack points
-
 let char1 = {
 	charName: 'Yoda',
 	hp: 180,
@@ -42,7 +41,7 @@ setGameBoard().then(() => {
 	return attack();
 }).catch(setError);
 
-// function to set game board and initial stats
+// ---------------------------------- function to set game board and initial stats ----------------------------------
 function setGameBoard() {
 	return new Promise((success, failure) => {
 		document.querySelector('#c1name').innerHTML = char1.charName;
@@ -66,9 +65,7 @@ function setGameBoard() {
 	});
 }
 
-// if character chosen, assign initial attack points, else assign counterattack points
-
-// chooseCharacter function that chooses main character
+// ----------------------------- chooseCharacter function that chooses main character -----------------------------------
 function chooseCharacter() {
 	return new Promise((success, failure) => {
 		console.log('chooseChar', document.querySelectorAll('.character'));
@@ -96,7 +93,7 @@ function chooseCharacter() {
 	});
 }
 
-// setDefender function to choose the character that main character will attack
+// --------------------- setDefender function to choose the character that main character will attack --------------------
 function setDefender(charData) {
 	// select any of the opponents as a defender	
 	console.log('chardata 2', charData)
@@ -121,7 +118,7 @@ function setError() {
 	console.log('There was an error setting the game board.');
 }
 
-// function to handle the attack and score keeping
+// ----------------------------- function to handle the attack and score keeping --------------------------------------------------
 function attack(charData) {
 
 	document.querySelector('#attack').addEventListener('click', (event) => {
@@ -143,6 +140,7 @@ function attack(charData) {
 				pickOpponentModal.style.display = 'none';
 			};
 		}
+		// assign the main and defending character data attribute values to variables
 		let mainChar = mainCharacter.dataset.objId;
 		let defenderChar = defenderCharacter.dataset.objId;
 		// select div container with class 'defeated-container'; store in variable 'defeated'
@@ -168,10 +166,28 @@ function attack(charData) {
 		} else if (defenderChar === 'char4') {
 			defenderChar = char4;
 		}
-		console.log('defchar', defenderChar);
 
+		// calculate the attack damage
 		defenderChar.hp = defenderChar.hp - mainChar.attack;
-		counterAttack();
+		// call the counterAttack function after each attack
+		let counterAttack = function() {
+			console.log('counterAttack func test', mainChar);
+			mainChar.hp = mainChar.hp - defenderChar.counterattack
+			let mainDefeatedModal = document.querySelector('#main-defeated-modal');
+			let modalClose4;
+			if (mainChar.hp <= 0) {
+				// get the children of the defeated opponents modal
+				let mainDefeatedChildren = mainDefeatedModal.children;
+				// grab the first child, p tag, and replace with the below message; dynamically change the defeated character's name
+				mainDefeatedChildren[0].innerHTML = 'Oh no! You\'ve been defeated ' + mainChar.charName + ' !' + '<span class="close4">&times;</span>';
+				modalClose4 = document.querySelector('.close4');
+				// document.querySelector('#defeat-modal-content').appendChild(modalElement);
+				mainDefeatedModal.style.display = 'block';
+				modalClose4.onclick = () => {
+					mainDefeatedModal.style.display = 'none';
+				};
+			}
+		}();
 
 		console.log('>>>>>>', defenderChar.hp);
 		// modal to indicate one oppoent has been defeated and to keep going
@@ -184,7 +200,8 @@ function attack(charData) {
 			// get the children of the defeated opponents modal
 			let defeatOpponentChildren = document.querySelector('#defeat-opponent-modal').children;
 			// grab the first child, p tag, and replace with the below message; dynamically change the defeated character's name
-			defeatOpponentChildren[0].innerHTML = 'Way to go! You just defeated ' + defenderChar.charName + '. Keep going! Use the force!' + '<span class="close2">&times;</span>';
+			defeatOpponentChildren[0].innerHTML = 'Way to go! You just defeated ' + defenderChar.charName + '. Keep going! Use the force!' + 
+			'<span class="close2">&times;</span>';
 			modalClose2 = document.querySelector('.close2');
 			// document.querySelector('#defeat-modal-content').appendChild(modalElement);
 			defeatOpponentModal.style.display = 'block';
@@ -202,29 +219,12 @@ function attack(charData) {
 			}
 		}
 
-		function counterAttack() {
-			console.log('counterAttack func test', mainChar);
-			mainChar.hp = mainChar.hp - defenderChar.counterattack
-			let mainDefeatedModal = document.querySelector('#main-defeated-modal');
-			let modalClose4;
-			if (mainChar.hp <= 0) {
-				// get the children of the defeated opponents modal
-				let mainDefeatedChildren = mainDefeatedModal.children;
-				// grab the first child, p tag, and replace with the below message; dynamically change the defeated character's name
-				mainDefeatedChildren[0].innerHTML = 'Oh no! You\'ve been defeated ' + mainChar.charName + ' !' + '<span class="close4">&times;</span>';
-				modalClose4 = document.querySelector('.close4');
-				// document.querySelector('#defeat-modal-content').appendChild(modalElement);
-				mainDefeatedModal.style.display = 'block';
-				modalClose4.onclick = () => {
-					mainDefeatedModal.style.display = 'none';
-				};
-			}
-		}
+		// calls function to update the character stats after each click of the attack button
 		setGameBoard();
 	});
 }
 
-
+// -------------------------- function to reset the gameboard upon clicking the reset button ---------------------------------
 function reset() {
 	// when reset button is clicked, stats are reset and characters move back to "characters available" container
 	document.querySelector('#reset').addEventListener('click', (event) => {
