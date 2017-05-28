@@ -20,6 +20,13 @@ div img {
 	display: block;
 }
 
+.your-character, .defender-container {
+	position: relative;
+	display: inline-block;
+	width: 40%;
+	
+}
+
 body {
 	background-image: url("../images/star-wars-wallpaper-21.jpg");
 	background-repeat: no-repeat; 

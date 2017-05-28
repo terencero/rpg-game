@@ -88,6 +88,7 @@ function chooseCharacter() {
 			document.querySelector('.opponent-container').appendChild(opponents[i]).classList.add('opponent');
 			opponents[i].classList.remove('character');
 		}
+		document.querySelector('.character-container').style.display = 'none';
 		setDefender();
 		return charData;
 	});
