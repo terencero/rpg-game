@@ -2,6 +2,10 @@ div {
 	border: solid black 2px;
 }
 
+.players {
+	border: none;
+}
+
 #c1, #c2, #c3, #c4  {
 	position: relative;
 	display: inline-block;
@@ -24,7 +28,7 @@ div img {
 	position: relative;
 	display: inline-block;
 	width: 40%;
-	
+
 }
 
 body {

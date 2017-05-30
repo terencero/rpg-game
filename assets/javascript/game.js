@@ -260,6 +260,7 @@ function reset() {
 			charContainer.appendChild(resetPlayers[i]).classList.add('character');
 			resetPlayers[i].classList.remove('main-char', 'opponent', 'main-def');
 		}
+		document.querySelector('.character-container').style.display = 'block';
 		// call the setGameBoard function to allow user to reset character stats and choose a new character
 		setGameBoard();
 	});
