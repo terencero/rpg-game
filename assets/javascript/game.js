@@ -26,6 +26,8 @@ let char4 = {
 };
 
 let defeatedCount = 0;
+document.querySelector('.defender-container').style.display = 'none';
+document.querySelector('.your-character').style.display = 'none';
 
 // move character images in correct divs
 // function to assign initial attack points for character selected and consistent counter attack points
@@ -78,6 +80,7 @@ function chooseCharacter() {
 				console.log('>>>', mainChar)
 				document.querySelector('.your-character').appendChild(mainChar).classList.add('main-char');
 				mainChar.classList.remove('character');
+				document.querySelector('.your-character').style.display = 'inline-block';
 				success(mainChar);
 			});
 		});
@@ -109,7 +112,9 @@ function setDefender(charData) {
 			document.querySelector('.defender-container').appendChild(mainDef).classList.add('main-def');
 			mainDef.classList.remove('opponent');
 			mainDef.classList.remove('main-char');
+			document.querySelector('.defender-container').style.display = 'inline-block';
 		});
+
 	}
 	return charData;
 }
@@ -171,7 +176,7 @@ function attack(charData) {
 		// calculate the attack damage
 		defenderChar.hp = defenderChar.hp - mainChar.attack;
 		// call the counterAttack function after each attack
-		let counterAttack = function() {
+		let counterAttack = function () {
 			console.log('counterAttack func test', mainChar);
 			mainChar.hp = mainChar.hp - defenderChar.counterattack
 			let mainDefeatedModal = document.querySelector('#main-defeated-modal');
@@ -201,8 +206,8 @@ function attack(charData) {
 			// get the children of the defeated opponents modal
 			let defeatOpponentChildren = document.querySelector('#defeat-opponent-modal').children;
 			// grab the first child, p tag, and replace with the below message; dynamically change the defeated character's name
-			defeatOpponentChildren[0].innerHTML = 'Way to go! You just defeated ' + defenderChar.charName + '. Keep going! Use the force!' + 
-			'<span class="close2">&times;</span>';
+			defeatOpponentChildren[0].innerHTML = 'Way to go! You just defeated ' + defenderChar.charName + '. Keep going! Use the force!' +
+				'<span class="close2">&times;</span>';
 			modalClose2 = document.querySelector('.close2');
 			// document.querySelector('#defeat-modal-content').appendChild(modalElement);
 			defeatOpponentModal.style.display = 'block';
